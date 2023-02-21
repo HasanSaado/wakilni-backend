@@ -8,6 +8,18 @@ use Auth;
 
 class ProductController extends Controller
 {
+
+    public function index(Request $request) {
+        $data = $request->validate([
+            'search' => 'required|string',
+        ]);
+
+        $user = Auth()->user();
+
+        $products = Product::search($request->search)->where('user_id', $user->id)->get();
+
+        return $products;
+    }
     
     public function create(Request $request) {
         $data = $request->validate([

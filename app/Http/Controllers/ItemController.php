@@ -9,6 +9,19 @@ use Auth;
 
 class ItemController extends Controller
 {
+
+    public function index(Request $request) {
+        $data = $request->validate([
+            'search' => 'required|string',
+        ]);
+        
+        $user = Auth()->user();
+
+        $items = Item::search($request->search)->where('user_id', $user->id)->get();
+
+        return $items;
+    }
+
     public function create(Request $request) {
         $data = $request->validate([
             'product_id' => 'required|integer',
@@ -19,6 +32,7 @@ class ItemController extends Controller
 
         $product = Product::where('id', $request->product_id)->where('user_id', $user->id)->first();
         if ($product) {
+            $data['user_id'] = $user->id;
             $data['sold'] = false;
             $savedItem = Item::create($data);
             $product->update(array('count' => $product->count + 1));

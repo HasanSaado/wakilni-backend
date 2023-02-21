@@ -25,6 +25,7 @@ Route::middleware('auth:api')->get('/user/logout', 'App\Http\Controllers\AuthCon
 Route::middleware('auth:api')->get('/user/refresh', 'App\Http\Controllers\AuthController@refresh');
 
 // product actions
+Route::middleware('auth:api')->post('/product', 'App\Http\Controllers\ProductController@index');
 Route::middleware('auth:api')->post('/product/create', 'App\Http\Controllers\ProductController@create');
 Route::middleware('auth:api')->delete('/product/delete/{product}', 'App\Http\Controllers\ProductController@delete');
 Route::middleware('auth:api')->put('/product/update', 'App\Http\Controllers\ProductController@update');
@@ -32,6 +33,7 @@ Route::middleware('auth:api')->get('/product/{product}', 'App\Http\Controllers\P
 Route::middleware('auth:api')->get('/product', 'App\Http\Controllers\ProductController@getProducts');
 
 // item actions
+Route::middleware('auth:api')->post('/item', 'App\Http\Controllers\ItemController@index');
 Route::middleware('auth:api')->post('/item/create', 'App\Http\Controllers\ItemController@create');
 Route::middleware('auth:api')->delete('/item/delete/{item}', 'App\Http\Controllers\ItemController@delete');
 Route::middleware('auth:api')->get('/item/{product}', 'App\Http\Controllers\ItemController@getItems');
