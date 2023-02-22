@@ -37,3 +37,4 @@ Route::middleware('auth:api')->post('/item', 'App\Http\Controllers\ItemControlle
 Route::middleware('auth:api')->post('/item/create', 'App\Http\Controllers\ItemController@create');
 Route::middleware('auth:api')->delete('/item/delete/{item}', 'App\Http\Controllers\ItemController@delete');
 Route::middleware('auth:api')->get('/item/{product}', 'App\Http\Controllers\ItemController@getItems');
+Route::middleware('auth:api')->post('/item/update', 'App\Http\Controllers\ItemController@update');

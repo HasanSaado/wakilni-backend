@@ -78,4 +78,22 @@ class ItemController extends Controller
         ], 403);
     }
 
+    public function update(Request $request) {
+        if ($request->has('item_id')) {
+            $data = array();
+            $user = Auth()->user();
+            $item = Item::where('id', $request->item_id)->first();
+            $product = Product::where('id', $item->product_id)->where('user_id', $user->id)->first();
+            if ($request->sold ==  "true") {
+                $product->update(array('count' => $product->count - 1));
+            } else {
+                $product->update(array('count' => $product->count + 1));
+            }
+
+            $data['sold'] = $request->sold == "true" ? "1" : "0";
+            $item->update($data);
+            return response()->json('Success', 200);
+        }
+    }
+
 }

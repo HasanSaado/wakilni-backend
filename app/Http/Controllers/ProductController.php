@@ -20,7 +20,7 @@ class ProductController extends Controller
 
         return $products;
     }
-    
+
     public function create(Request $request) {
         $data = $request->validate([
             'name' => 'required|string',
@@ -29,7 +29,7 @@ class ProductController extends Controller
         ]);
 
         $user = Auth()->user();
-        
+
         $imageName = time().'.'.$request->image->extension();
         $request->image->move(public_path('images'), $imageName);
         $data['user_id'] = $user->id;
@@ -37,7 +37,7 @@ class ProductController extends Controller
         $data['count'] = 0;
         $savedProduct = Product::create($data);
 
-        return response()->json($savedProduct, 200);
+        return response()->json(['status' => 'Success'], 200);
     }
 
     public function delete(Product $product) {
